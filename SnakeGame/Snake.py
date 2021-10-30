@@ -26,6 +26,10 @@ class Snake:
         if(not grow):
             self.__tail.pop()
 
+    @property
+    def head(self):
+        return self.__head
+
     def overlaps(self,point:Point.Point) -> bool:
         '''Check if the Snake's tail or head overlaps a specific Point.
 

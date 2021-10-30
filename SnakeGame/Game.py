@@ -41,3 +41,15 @@ class SnakeGame:
         '''
 
         raise GameOver()
+
+    def has_point(self,point:Point.Point) -> bool:
+        '''Checks if a point is on the game board.
+
+        :param point: Point to check
+        :type point: Point
+        :returns: Whether or not the Point is on the game board.
+        :rtype: bool
+        '''
+
+        return point == self.apple or self.snake.overlaps(point)
+        
