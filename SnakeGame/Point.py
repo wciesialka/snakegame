@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from random import randint
 
 @dataclass(eq=True,order=False)
 class Point:
@@ -14,7 +15,28 @@ class Point:
     x: int
     y: int
 
-    def copy(self):
+    @staticmethod
+    def Random(x:int,dx:int,y:int,dy:int) -> Point:
+        '''Returns a Point object with random x and y coordinates.
+
+        :param x: Lower bound of x
+        :type x: int
+        :param dx: Possible range of change of x
+        :type dx: int
+        :param y: Lower bound of y
+        :type y: int
+        :param dy: Possible range of change of y
+        :type dy: int
+
+        :returns: A Point with random coordinates.
+        :rtype: Point
+        '''
+        nx = randint(x,x+dx)
+        ny = randint(y,y+dy)
+        return Point(nx,ny)
+
+
+    def copy(self) -> Point:
         '''Returns a copy of the point object.
         
         :returns copy: Copy of the point.
