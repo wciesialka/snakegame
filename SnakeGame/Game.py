@@ -2,8 +2,16 @@ import SnakeGame.Snake as Snake
 import SnakeGame.Point as Point
 from random import randint, seed
 from os import time
+from enum import Enum
 
-class GameOver():
+class TileType(Enum):
+
+    EMPTY = 0
+    HEAD = 1
+    TAIL = 2
+    APPLE = 3
+
+class GameOver:
     '''GameOver class. Empty, but used to check if the Snake Game is over.'''
     pass
 
@@ -42,14 +50,22 @@ class SnakeGame:
 
         raise GameOver()
 
-    def has_point(self,point:Point.Point) -> bool:
+    def tile_type(self,point:Point.Point) -> TileType:
         '''Checks if a point is on the game board.
 
         :param point: Point to check
         :type point: Point
-        :returns: Whether or not the Point is on the game board.
-        :rtype: bool
+        :returns: What kind of tile the specific point is.
+        :rtype: TileType
         '''
 
-        return point == self.apple or self.snake.overlaps(point)
+        if(point == self.apple):
+            return TileType.APPLE
+        elif(self.snake.overlaps(point)):
+            if point == self.snake.head:
+                return TileType.HEAD
+            else:
+                return TileType.TAIL
+        else:
+            return TileType.EMPTY
         
