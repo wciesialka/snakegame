@@ -59,13 +59,14 @@ class SnakeGame:
         :rtype: TileType
         '''
 
-        if(point == self.apple):
-            return TileType.APPLE
-        elif(self.snake.overlaps(point)):
+
+        if(self.snake.overlaps(point)):
             if point == self.snake.head:
                 return TileType.HEAD
             else:
                 return TileType.TAIL
+        elif(point == self.apple):
+            return TileType.APPLE
         else:
             return TileType.EMPTY
         
