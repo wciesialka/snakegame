@@ -43,7 +43,7 @@ class Snake:
                 return True
         return point == self.__head
 
-    def eating_self(self) -> bool:
+    def is_eating_self(self) -> bool:
         '''Check if the Snake's head is overlapping any of it's tail.
 
         :returns: Whether or not the head point overlaps any of the tail points.
