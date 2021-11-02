@@ -1,5 +1,6 @@
 from enum import Enum
 import SnakeGame.Point as Point
+from typing import List
 class SnakeDirection(Enum):
     '''Directions a Snake's head can face.
 
@@ -19,9 +20,9 @@ class Snake:
     :vartype length: int'''
 
     def __init__(self,x:int,y:int):
-        self.__head = Point.Point(x,y)
-        self.__tail = []
-        self.__direction = SnakeDirection.NORTH
+        self.__head:Point.Point = Point.Point(x,y)
+        self.__tail:List[Point.Point] = []
+        self.__direction:SnakeDirection = SnakeDirection.NORTH
 
     def update(self,*,grow:bool=False):
         '''Update the snake.

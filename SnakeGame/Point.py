@@ -1,5 +1,5 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from random import randint
 
 @dataclass(eq=True,order=False)
@@ -15,7 +15,7 @@ class Point:
 
     x: int
     y: int
-
+  
     @classmethod
     def Random(cls,x:int,y:int,dx:int,dy:int) -> Point:
         '''Returns a Point object with random x and y coordinates.

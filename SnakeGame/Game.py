@@ -27,6 +27,8 @@ class SnakeGame:
         self.__apple:Point.Point = None
         self.__snake:Snake.Snake = Snake.Snake(self.__size//2,self.__size//2)
 
+        self.__spawn_apple()
+
     @property
     def score(self) -> int:
         '''The score of the game.'''
