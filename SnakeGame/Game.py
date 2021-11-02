@@ -1,7 +1,7 @@
 import SnakeGame.Snake as Snake
 import SnakeGame.Point as Point
 from random import randint, seed
-from os import time
+from time import time_ns
 from enum import Enum
 
 class TileType(Enum):
@@ -18,18 +18,20 @@ class GameOver:
 class SnakeGame:
 
     def __init__(self,board_size:int):
-        seed(time())
+        seed(time_ns())
         self.__size = board_size
         self.__apple = None
-        self.__snake = Snake(self.__size//2,self.__size//2)
+        self.__snake = Snake.Snake(self.__size//2,self.__size//2)
         self.__score = 0
 
     @property
-    def score(self):
+    def score(self) -> int:
+        '''The score of the game.'''
         return self.__score
 
     @property
-    def size(self):
+    def size(self) -> int:
+        '''The size of the board.'''
         return self.__size
 
     def __spawn_apple(self):
