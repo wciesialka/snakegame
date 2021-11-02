@@ -84,3 +84,18 @@ class SnakeGame:
         else:
             return TileType.EMPTY
         
+    def face_north(self):
+        '''Make the Snake face North.'''
+        self.__snake.face_north()
+
+    def face_east(self):
+        '''Make the Snake face East.'''
+        self.__snake.face_east()
+
+    def face_south(self):
+        '''Make the Snake face South.'''
+        self.__snake.face_south()
+
+    def face_west(self):
+        '''Make the Snake face West.'''
+        self.__snake.face_west()
