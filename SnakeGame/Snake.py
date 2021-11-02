@@ -1,17 +1,16 @@
 from enum import Enum
 import SnakeGame.Point as Point
-
 class SnakeDirection(Enum):
 
-    NORTH = Point(0,-1)
-    EAST = Point(1,0)
-    SOUTH = Point(0,1)
-    WEST = Point(-1,1)
+    NORTH = Point.Point(0,-1)
+    EAST = Point.Point(1,0)
+    SOUTH = Point.Point(0,1)
+    WEST = Point.Point(-1,1)
 
 class Snake:
 
     def __init__(self,x:int,y:int):
-        self.__head = Point(x,y)
+        self.__head = Point.Point(x,y)
         self.__tail = []
         self.__direction = SnakeDirection.NORTH
 
@@ -22,7 +21,7 @@ class Snake:
         :type grow: bool
         '''
         self.__tail.append(self.__head.copy())
-        self.__head += self.__direction
+        self.__head += self.__direction.value
         if(not grow):
             self.__tail.pop()
 
@@ -55,3 +54,29 @@ class Snake:
             if segment == self.__head:
                 return True
         return False
+
+    def face_direction(self,direction:SnakeDirection):
+        '''Make the head of the snake face a certain direction.
+
+        :param direction: Direction to face
+        :type direction: SnakeDirection'''
+        if isinstance(direction,SnakeDirection):
+            self.__direction = direction
+        else:
+            raise TypeError(f'Expected enum SnakeDirection, not type {direction.__class__.__name__}')
+
+    def face_north(self):
+        '''Make the head of the snake face north.'''
+        self.face_direction(SnakeDirection.NORTH)
+
+    def face_east(self):
+        '''Make the head of the snake face east.'''
+        self.face_direction(SnakeDirection.EAST)
+
+    def face_south(self):
+        '''Make the head of the snake face south.'''
+        self.face_direction(SnakeDirection.SOUTH)
+
+    def face_west(self):
+        '''Make the head of the snake face west.'''
+        self.face_direction(SnakeDirection.WEST)
