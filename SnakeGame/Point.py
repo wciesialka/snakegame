@@ -17,7 +17,7 @@ class Point:
     y: int
 
     @classmethod
-    def Random(cls,x:int,dx:int,y:int,dy:int) -> Point:
+    def Random(cls,x:int,y:int,dx:int,dy:int) -> Point:
         '''Returns a Point object with random x and y coordinates.
 
         :param x: Lower bound of x
