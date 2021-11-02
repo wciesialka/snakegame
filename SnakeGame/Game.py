@@ -38,7 +38,7 @@ class SnakeGame:
         '''Spawns an apple on the board.'''
 
         while True:
-            self.__apple = Point.Random(0,self.__size,0,self.__size)
+            self.__apple = Point.Point.Random(0,self.__size,0,self.__size)
 
             if(not self.__snake.overlaps(self.__apple)):
                 break
