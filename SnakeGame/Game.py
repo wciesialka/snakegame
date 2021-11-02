@@ -11,7 +11,7 @@ class TileType(Enum):
     TAIL = 2
     APPLE = 3
 
-class GameOver:
+class GameOver(BaseException):
     '''GameOver class. Empty, but used to check if the Snake Game is over.'''
     pass
 
@@ -52,10 +52,15 @@ class SnakeGame:
         if self.__snake.overlaps(self.__apple): # handle if snake eats apple
             self.__snake.update(grow=True)
             self.__score += 1
+            self.__apple = None
         else: # handle if snake does not eat apple
             self.__snake.update(grow=False)
 
         if(self.__snake.is_eating_self()): # handle if snake is overlapping itself
+            self.game_over()
+
+        if(self.__snake.head.x < 0 or self.__snake.head.x > self.__size
+        or self.__snake.head.y < 0 or self.__snake.head.y > self.__size): # handle oob
             self.game_over()
 
     def game_over(self):
