@@ -7,10 +7,10 @@ class Point:
     """
     Represents a point in 2D space.
 
-    :field x: The x coordinate of the point.
-    :type x: int
-    :field y: The y coordinate of the point.
-    :type y: int
+    :ivar x: The x coordinate of the point.
+    :vartype x: int
+    :ivar y: The y coordinate of the point.
+    :vartype y: int
     """
 
     x: int
@@ -59,4 +59,3 @@ class Point:
             return Point(x,y)
         else:
             raise TypeError(f"unsupported operand type(s) for -: 'Point' and '{other.__class__.__name__}'")
-    

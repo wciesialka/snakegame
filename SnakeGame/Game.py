@@ -5,6 +5,9 @@ from time import time_ns
 from enum import Enum
 
 class TileType(Enum):
+    '''Types of Tiles that a SnakeGame can have on it's board.
+    
+    Includes EMPTY, HEAD, TAIL, APPLE'''
 
     EMPTY = 0
     HEAD = 1
@@ -16,18 +19,18 @@ class GameOver(BaseException):
     pass
 
 class SnakeGame:
+    '''SnakeGame controller.'''
 
     def __init__(self,board_size:int):
         seed(time_ns())
         self.__size = board_size
         self.__apple = None
         self.__snake = Snake.Snake(self.__size//2,self.__size//2)
-        self.__score = 0
 
     @property
     def score(self) -> int:
         '''The score of the game.'''
-        return self.__score
+        return self.__snake.length
 
     @property
     def size(self) -> int:
@@ -51,7 +54,6 @@ class SnakeGame:
 
         if self.__snake.overlaps(self.__apple): # handle if snake eats apple
             self.__snake.update(grow=True)
-            self.__score += 1
             self.__apple = None
         else: # handle if snake does not eat apple
             self.__snake.update(grow=False)

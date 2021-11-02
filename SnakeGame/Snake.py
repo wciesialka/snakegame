@@ -1,6 +1,9 @@
 from enum import Enum
 import SnakeGame.Point as Point
 class SnakeDirection(Enum):
+    '''Directions a Snake's head can face.
+
+    Includes NORTH, EAST, SOUTH, WEST'''
 
     NORTH = Point.Point(0,-1)
     EAST = Point.Point(1,0)
@@ -8,6 +11,12 @@ class SnakeDirection(Enum):
     WEST = Point.Point(-1,1)
 
 class Snake:
+    '''SnakeGame Snake object.
+    
+    :ivar head: The head of the Snake.
+    :vartype head: Point
+    :ivar length: Length of the Snake.
+    :vartype length: int'''
 
     def __init__(self,x:int,y:int):
         self.__head = Point.Point(x,y)
@@ -26,8 +35,14 @@ class Snake:
             self.__tail.pop()
 
     @property
-    def head(self):
+    def head(self) -> Point.Point:
+        '''Head of the Snake.'''
         return self.__head
+
+    @property
+    def length(self) -> int:
+        '''Length of the Snake.'''
+        return 1 + len(self.__tail)
 
     def overlaps(self,point:Point.Point) -> bool:
         '''Check if the Snake's tail or head overlaps a specific Point.
