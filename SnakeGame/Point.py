@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 from random import randint
 
@@ -15,8 +16,8 @@ class Point:
     x: int
     y: int
 
-    @staticmethod
-    def Random(x:int,dx:int,y:int,dy:int) -> Point:
+    @classmethod
+    def Random(cls,x:int,dx:int,y:int,dy:int) -> Point:
         '''Returns a Point object with random x and y coordinates.
 
         :param x: Lower bound of x
@@ -33,7 +34,7 @@ class Point:
         '''
         nx = randint(x,x+dx)
         ny = randint(y,y+dy)
-        return Point(nx,ny)
+        return cls(nx,ny)
 
 
     def copy(self) -> Point:
