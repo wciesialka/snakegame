@@ -23,9 +23,9 @@ class SnakeGame:
 
     def __init__(self,board_size:int):
         seed(time_ns())
-        self.__size = board_size
-        self.__apple = None
-        self.__snake = Snake.Snake(self.__size//2,self.__size//2)
+        self.__size:int = board_size
+        self.__apple:Point.Point = None
+        self.__snake:Snake.Snake = Snake.Snake(self.__size//2,self.__size//2)
 
     @property
     def score(self) -> int:
@@ -41,7 +41,7 @@ class SnakeGame:
         '''Spawns an apple on the board.'''
 
         while True:
-            self.__apple = Point.Point.Random(0,self.__size,0,self.__size)
+            self.__apple = Point.Point.Random(0,0,self.__size,self.__size)
 
             if(not self.__snake.overlaps(self.__apple)):
                 break
@@ -51,6 +51,8 @@ class SnakeGame:
 
         if self.__apple == None: # handle if there is no apple
             self.__spawn_apple()
+
+        print(self.__apple)
 
         if self.__snake.overlaps(self.__apple): # handle if snake eats apple
             self.__snake.update(grow=True)
