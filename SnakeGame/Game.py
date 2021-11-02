@@ -19,27 +19,41 @@ class SnakeGame:
 
     def __init__(self,board_size:int):
         seed(time())
-        self.size = board_size
-        self.apple = None
-        self.snake = Snake(size//2,size//2)
+        self.__size = board_size
+        self.__apple = None
+        self.__snake = Snake(self.__size//2,self.__size//2)
+        self.__score = 0
 
-    def spawn_apple(self):
+    @property
+    def score(self):
+        return self.__score
+
+    @property
+    def size(self):
+        return self.__size
+
+    def __spawn_apple(self):
         '''Spawns an apple on the board.'''
 
         while True:
-            self.apple = Point.Random(0,self.size,0,self.size)
+            self.__apple = Point.Random(0,self.__size,0,self.__size)
 
-            if(not self.snake.overlaps(self.apple)):
+            if(not self.__snake.overlaps(self.__apple)):
                 break
         
     def update(self):
         '''Updates the game. If there is no apple, spawn an apple. Update the snake. If the snake is overlapping itself, call SnakeGame.game_over()'''
 
-        if self.apple == None:
-            self.spawn_apple()
-        self.snake.update(grow=self.snake.overlaps(self.apple))
+        if self.__apple == None: # handle if there is no apple
+            self.__spawn_apple()
 
-        if(self.snake.eating_self):
+        if self.__snake.overlaps(self.__apple): # handle if snake eats apple
+            self.__snake.update(grow=True)
+            self.__score += 1
+        else: # handle if snake does not eat apple
+            self.__snake.update(grow=False)
+
+        if(self.__snake.is_eating_self()): # handle if snake is overlapping itself
             self.game_over()
 
     def game_over(self):
@@ -60,12 +74,12 @@ class SnakeGame:
         '''
 
 
-        if(self.snake.overlaps(point)):
-            if point == self.snake.head:
+        if(self.__snake.overlaps(point)):
+            if point == self.__snake.head:
                 return TileType.HEAD
             else:
                 return TileType.TAIL
-        elif(point == self.apple):
+        elif(point == self.__apple):
             return TileType.APPLE
         else:
             return TileType.EMPTY
