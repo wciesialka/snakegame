@@ -103,17 +103,21 @@ class SnakeGame:
             return TileType.EMPTY
         
     def face_north(self):
-        '''Make the Snake face North.'''
-        self.__snake.face_north()
+        '''Make the Snake face North. Cannot face North if currently facing South.'''
+        if not self.__snake.is_facing_south():
+            self.__snake.face_north()
 
     def face_east(self):
-        '''Make the Snake face East.'''
-        self.__snake.face_east()
+        '''Make the Snake face East. Cannot face East if currently facing West.'''
+        if not self.__snake.is_facing_west():
+            self.__snake.face_east()
 
     def face_south(self):
-        '''Make the Snake face South.'''
-        self.__snake.face_south()
+        '''Make the Snake face South. Cannot face South if currently facing North.'''
+        if not self.__snake.is_facing_north():
+            self.__snake.face_south()
 
     def face_west(self):
-        '''Make the Snake face West.'''
-        self.__snake.face_west()
+        '''Make the Snake face West. Cannot face West if currently facing East.'''
+        if not self.__snake.is_facing_east():
+            self.__snake.face_west()
