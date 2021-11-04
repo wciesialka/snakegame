@@ -58,7 +58,8 @@ class SnakeGame:
 
 
         if(self.__snake.head.x < 0 or self.__snake.head.x > self.size[0]
-        or self.__snake.head.y < 0 or self.__snake.head.y > self.size[1]): # handle oob
+        or self.__snake.head.y < 0 or self.__snake.head.y > self.size[1]
+        or self.__snake.is_eating_self()): # handle oob and eating self
             self.game_over()
 
         if self.__growths > 0: # handle if snake does not eat apple
@@ -70,9 +71,6 @@ class SnakeGame:
         if self.__snake.overlaps(self.__apple): # handle if snake eats apple
             self.__growths += 1
             self.__spawn_apple()
-
-        if(self.__snake.is_eating_self()): # handle if snake is overlapping itself
-            self.game_over()
 
     def game_over(self):
         '''Ends the game.
