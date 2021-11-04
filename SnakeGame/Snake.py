@@ -71,6 +71,53 @@ class Snake:
                 return True
         return False
 
+    def is_facing(self,direction:SnakeDirection) -> bool:
+        '''Check if Snake is facing a direction.
+
+        :param direction: Direction to check.
+        :type direction: SnakeDirection
+        :returns: True if Snake is facing that direction, False otherwise.
+        :rtype: bool
+        '''
+
+        return self.__direction == direction
+
+    def is_facing_north(self) -> bool:
+        '''Check if Snake is facing North.
+
+        :returns: True if Snake is facing North, False otherwise.
+        :rtype: bool
+        '''
+
+        return self.is_facing(SnakeDirection.NORTH)
+
+    def is_facing_east(self) -> bool:
+        '''Check if Snake is facing East.
+
+        :returns: True if Snake is facing East, False otherwise.
+        :rtype: bool
+        '''
+
+        return self.is_facing(SnakeDirection.EAST)
+
+    def is_facing_west(self) -> bool:
+        '''Check if Snake is facing West.
+
+        :returns: True if Snake is facing West, False otherwise.
+        :rtype: bool
+        '''
+
+        return self.is_facing(SnakeDirection.WEST)
+
+    def is_facing_south(self) -> bool:
+        '''Check if Snake is facing South.
+
+        :returns: True if Snake is facing South, False otherwise.
+        :rtype: bool
+        '''
+
+        return self.is_facing(SnakeDirection.SOUTH)
+
     def face_direction(self,direction:SnakeDirection):
         '''Make the head of the snake face a certain direction.
 
