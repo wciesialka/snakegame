@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 from SnakeGame import Game, Point
 from time import sleep
