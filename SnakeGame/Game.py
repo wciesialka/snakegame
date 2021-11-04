@@ -3,6 +3,7 @@ import SnakeGame.Point as Point
 from random import randint, seed
 from time import time_ns
 from enum import Enum
+from typing import Tuple
 
 class TileType(Enum):
     '''Types of Tiles that a SnakeGame can have on it's board.
@@ -21,12 +22,12 @@ class GameOver(BaseException):
 class SnakeGame:
     '''SnakeGame controller.'''
 
-    def __init__(self,board_size:int,initial_snake_size:int = 0):
+    def __init__(self,board_size:Tuple[int,int],initial_snake_size:int = 1):
         seed(time_ns())
-        self.__size:int = board_size
+        self.__size:Tuple[int,int] = board_size
         self.__apple:Point.Point = None
-        self.__snake:Snake.Snake = Snake.Snake(self.__size//2,self.__size//2)
-        self.__growths:int = initial_snake_size
+        self.__snake:Snake.Snake = Snake.Snake(self.__size[0]//2,self.__size[1]//2)
+        self.__growths:int = initial_snake_size-1 # -1 because we want the tail size
 
         self.__spawn_apple()
 
@@ -44,7 +45,7 @@ class SnakeGame:
         '''Spawns an apple on the board.'''
 
         while True:
-            self.__apple = Point.Point.Random(0,0,self.__size,self.__size)
+            self.__apple = Point.Point.Random(0,0,self.__size[0],self.__size[1])
 
             if(not self.__snake.overlaps(self.__apple)):
                 break
@@ -68,8 +69,8 @@ class SnakeGame:
         if(self.__snake.is_eating_self()): # handle if snake is overlapping itself
             self.game_over()
 
-        if(self.__snake.head.x < 0 or self.__snake.head.x > self.__size
-        or self.__snake.head.y < 0 or self.__snake.head.y > self.__size): # handle oob
+        if(self.__snake.head.x < 0 or self.__snake.head.x > self.size[0]
+        or self.__snake.head.y < 0 or self.__snake.head.y > self.size[1]): # handle oob
             self.game_over()
 
     def game_over(self):
