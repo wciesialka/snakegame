@@ -9,7 +9,7 @@ from typing import List
 import threading
 from enum import Enum
 
-FRAMERATE:int = 3 # Frames per second
+FRAMERATE:int = 5 # Frames per second
 
 class ConsoleFormat(Enum):
     '''Console text formatting commands.'''
