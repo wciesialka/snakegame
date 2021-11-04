@@ -21,11 +21,12 @@ class GameOver(BaseException):
 class SnakeGame:
     '''SnakeGame controller.'''
 
-    def __init__(self,board_size:int):
+    def __init__(self,board_size:int,initial_snake_size:int = 0):
         seed(time_ns())
         self.__size:int = board_size
         self.__apple:Point.Point = None
         self.__snake:Snake.Snake = Snake.Snake(self.__size//2,self.__size//2)
+        self.__growths:int = initial_snake_size
 
         self.__spawn_apple()
 
@@ -54,12 +55,14 @@ class SnakeGame:
         if self.__apple == None: # handle if there is no apple
             self.__spawn_apple()
 
-        print(self.__apple)
-
         if self.__snake.overlaps(self.__apple): # handle if snake eats apple
+            self.__growths += 1
+            self.__spawn_apple()
+
+        if self.__growths > 0: # handle if snake does not eat apple
             self.__snake.update(grow=True)
-            self.__apple = None
-        else: # handle if snake does not eat apple
+            self.__growths -= 1
+        else:
             self.__snake.update(grow=False)
 
         if(self.__snake.is_eating_self()): # handle if snake is overlapping itself
