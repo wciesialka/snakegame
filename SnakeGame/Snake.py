@@ -30,7 +30,7 @@ class Snake:
         :param grow: If true, "grow" the snake by not popping it's tail.
         :type grow: bool
         '''
-        self.__tail.append(self.__head.copy())
+        self.__tail.insert(0,self.__head.copy())
         self.__head += self.__direction.value
         if(not grow):
             self.__tail.pop()
