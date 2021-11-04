@@ -22,8 +22,8 @@ class GameOver(BaseException):
 class SnakeGame:
     '''SnakeGame controller.'''
 
-    def __init__(self,board_size:Tuple[int,int],initial_snake_size:int = 1):
-        seed(time_ns())
+    def __init__(self,board_size:Tuple[int,int],initial_snake_size:int = 1,game_seed:int = time_ns()):
+        seed(game_seed)
         self.__size:Tuple[int,int] = board_size
         self.__apple:Point.Point = None
         self.__snake:Snake.Snake = Snake.Snake(self.__size[0]//2,self.__size[1]//2)
