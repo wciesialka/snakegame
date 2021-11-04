@@ -9,7 +9,7 @@ class SnakeDirection(Enum):
     NORTH = Point.Point(0,-1)
     EAST = Point.Point(1,0)
     SOUTH = Point.Point(0,1)
-    WEST = Point.Point(-1,1)
+    WEST = Point.Point(-1,0)
 
 class Snake:
     '''SnakeGame Snake object.
