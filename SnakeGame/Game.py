@@ -27,6 +27,7 @@ class SnakeGame:
         self.__size:Tuple[int,int] = board_size
         self.__apple:Point.Point = None
         self.__snake:Snake.Snake = Snake.Snake(self.__size[0]//2,self.__size[1]//2)
+        self.__initial_size:int = initial_snake_size
         self.__growths:int = initial_snake_size-1 # -1 because we want the tail size
 
         self.__spawn_apple()
@@ -34,7 +35,7 @@ class SnakeGame:
     @property
     def score(self) -> int:
         '''The score of the game.'''
-        return self.__snake.length
+        return self.__snake.length - self.__initial_size
 
     @property
     def size(self) -> int:
