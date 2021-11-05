@@ -9,7 +9,7 @@ from typing import List
 import threading
 from enum import Enum
 
-FRAMERATE:int = 5 # Frames per second
+UPDATES_PER_SECOND:int = 5 # Frames per second
 
 class CSISequence(Enum):
     '''ANSII CSI Sequences.'''
@@ -42,7 +42,7 @@ class CSISequence(Enum):
 
     def __str__(self):
         # CSI : \033[
-        return f"\033[{self.value}";
+        return f"\033[{self.value}"
 
 class RunningFlag:
 
@@ -162,7 +162,6 @@ def start(key_queue:List[str]):
     :param key_queue: Queue of keys that the user inputs.
     :type key_queue: list[str]'''
 
-    pt = Point.Point(1.5,2.3)
     game = Game.SnakeGame((20,10),3)
     while True:
         print_game_screen(game)
@@ -183,7 +182,9 @@ def start(key_queue:List[str]):
             break
         
 
-        sleep(1 / FRAMERATE)
+        sleep(1 / UPDATES_PER_SECOND)
+
+        # Set cursor position to start of game screen for next print.
         for _ in range(game.size[0]+3):
             print(CSISequence.CURSOR_LEFT, end='')
         for _ in range(game.size[1]+4):
