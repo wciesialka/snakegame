@@ -11,30 +11,38 @@ from enum import Enum
 
 FRAMERATE:int = 5 # Frames per second
 
-class ConsoleFormat(Enum):
-    '''Console text formatting commands.'''
+class CSISequence(Enum):
+    '''ANSII CSI Sequences.'''
 
-    RESET = '\033[1;0m'
-    FG_BLACK = '\033[1;30m' 
-    FG_RED = '\033[1;31m'
-    FG_GREEN = '\033[1;32m'
-    FG_YELLOW = '\033[1;33m'
-    FG_BLUE = '\033[1;34m'
-    FG_MAGENTA = '\033[1;35m'
-    FG_CYAN = '\033[1;36m'
-    FG_WHITE = '\033[1;37m'
+    RESET = '0m'
+    FG_BLACK = '30m' 
+    FG_RED = '31m'
+    FG_GREEN = '32m'
+    FG_YELLOW = '33m'
+    FG_BLUE = '34m'
+    FG_MAGENTA = '35m'
+    FG_CYAN = '36m'
+    FG_WHITE = '37m'
 
-    BG_BLACK = '\033[1;40m' 
-    BG_RED = '\033[1;41m'
-    BG_GREEN = '\033[1;42m'
-    BG_YELLOW = '\033[1;43m'
-    BG_BLUE = '\033[1;44m'
-    BG_MAGENTA = '\033[1;45m'
-    BG_CYAN = '\033[1;46m'
-    BG_WHITE = '\033[1;47m'
+    BG_BLACK = '40m' 
+    BG_RED = '41m'
+    BG_GREEN = '42m'
+    BG_YELLOW = '43m'
+    BG_BLUE = '44m'
+    BG_MAGENTA = '45m'
+    BG_CYAN = '46m'
+    BG_WHITE = '47m'
+
+    CURSOR_UP = 'A'
+    CURSOR_DOWN = 'B'
+    CURSOR_RIGHT = 'C'
+    CURSOR_LEFT = 'D'
+    CURSOR_PREVIOUS_LINE = 'F'
+    CURSOR_NEXT_LINE = 'E'
 
     def __str__(self):
-        return self.value
+        # CSI : \033[
+        return f"\033[{self.value}";
 
 class RunningFlag:
 
@@ -66,12 +74,12 @@ def print_game_screen(game:Game.SnakeGame):
     :param game: Game object to print.
     :type game: SnakeGame
     '''
-    block = f'{ConsoleFormat.FG_BLACK}\u2588'
+    block = f'{CSISequence.FG_BLACK}\u2588'
     
-    for y in range(-1,game.size[1]+2):
+    for y in range(-1,game.size[1]+2):        # Go to start
 
         for x in range(-1,game.size[0]+2):
-            print(ConsoleFormat.BG_WHITE,end='')
+            print(CSISequence.BG_WHITE,end='')
 
             if x == -1 or x == game.size[0] + 1 or y == -1 or y == game.size[1]+1:
                 print(block,end='')
@@ -83,13 +91,13 @@ def print_game_screen(game:Game.SnakeGame):
                 if tile is Game.TileType.EMPTY:
                     print(' ',end='')
                 elif tile is Game.TileType.APPLE:
-                    print(f'{ConsoleFormat.FG_RED}@',end='')
+                    print(f'{CSISequence.FG_RED}@',end='')
                 elif tile is Game.TileType.HEAD:
-                    print(f'{ConsoleFormat.FG_GREEN}O',end='')
+                    print(f'{CSISequence.FG_GREEN}O',end='')
                 else:
-                    print(f'{ConsoleFormat.FG_GREEN}*',end='')
-                print(ConsoleFormat.RESET,end='')
-        print(ConsoleFormat.RESET)
+                    print(f'{CSISequence.FG_GREEN}*',end='')
+                print(CSISequence.RESET,end='')
+        print(CSISequence.RESET)
 
 def movement_queue_handler(sentry:RunningFlag, queue:List[str] = []):
     '''Function for handling the movement queue without blocking.
@@ -156,7 +164,6 @@ def start(key_queue:List[str]):
     pt = Point.Point(1.5,2.3)
     game = Game.SnakeGame((20,10),3)
     while True:
-        system("clear")
         print_game_screen(game)
 
         if len(key_queue) > 0:
@@ -176,7 +183,10 @@ def start(key_queue:List[str]):
         
 
         sleep(1 / FRAMERATE)
-    system("clear")
+        for _ in range(game.size[0]+3):
+            print(CSISequence.CURSOR_LEFT, end='')
+        for _ in range(game.size[1]+3):
+            print(CSISequence.CURSOR_UP, end='')
     print(f"Game Over! Your score: {game.score}")
     
 
