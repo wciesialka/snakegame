@@ -98,6 +98,7 @@ def print_game_screen(game:Game.SnakeGame):
                     print(f'{CSISequence.FG_GREEN}*',end='')
                 print(CSISequence.RESET,end='')
         print(CSISequence.RESET)
+    print("W: Up / A: Left / S: Down / D: Right")
 
 def movement_queue_handler(sentry:RunningFlag, queue:List[str] = []):
     '''Function for handling the movement queue without blocking.
@@ -185,7 +186,7 @@ def start(key_queue:List[str]):
         sleep(1 / FRAMERATE)
         for _ in range(game.size[0]+3):
             print(CSISequence.CURSOR_LEFT, end='')
-        for _ in range(game.size[1]+3):
+        for _ in range(game.size[1]+4):
             print(CSISequence.CURSOR_UP, end='')
     print(f"Game Over! Your score: {game.score}")
     
