@@ -10,6 +10,7 @@ import threading
 from enum import Enum
 
 UPDATES_PER_SECOND:int = 5 # Frames per second
+MAX_KEY_QUEUE_SIZE:int = 3
 
 class CSISequence(Enum):
     '''ANSII CSI Sequences.'''
@@ -117,6 +118,8 @@ def movement_queue_handler(sentry:RunningFlag, queue:List[str] = []):
             if c:
                 if c.lower() in valid_keys:
                     queue.append(c.lower())
+                    if(len(queue) > MAX_KEY_QUEUE_SIZE):
+                        queue.pop(0)
 
         except IOError: pass
 
