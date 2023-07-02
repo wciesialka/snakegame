@@ -13,7 +13,7 @@ Running is as simple as `python3 main.py` or `./main.py`.
 Contributions are welcome!
 
 ## Author
-- Will Ciesialka
+- Willow Ciesialka
 
 ## License
 This project is licensed under the GNU GENERAL PUBLIC LICENSE VERSION 3. See [LICENSE](LICENSE) for details.
